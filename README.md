@@ -26,7 +26,6 @@ Your models should also have the following constraints or validations:
 - Park
   - name must be unique
   - address must be present
-  - state must be present
   - entrance fee is between $13.99 - $25.00
 - Campsite
   - max capacity is less than or equal to 10
