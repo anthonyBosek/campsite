@@ -22,7 +22,28 @@ api = Api(app)
 
 
 class Parks(Resource):
-    pass
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+api.add_resource(Parks, "/parks")
+
+
+class ParkById(Resource):
+    def get(self, id):
+        pass
+
+    def patch(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+
+
+api.add_resource(ParkById, "parks/<int:id>")
 
 
 if __name__ == "__main__":
