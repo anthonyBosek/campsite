@@ -3,7 +3,7 @@ import random
 
 from app import app
 from faker import Faker
-from models import Campsite, Park, db
+from models import db, Campsite, Park, Reservation
 
 fake = Faker()
 
@@ -12,6 +12,7 @@ with app.app_context():
 
     Park.query.delete()
     Campsite.query.delete()
+    Reservation.query.delete()
 
     print("Seeding parks...")
 
@@ -47,7 +48,7 @@ with app.app_context():
 
     for _ in range(10):
         site = Campsite(
-            park_id=random.choice(parks).id,
+            park_name=random.choice(parks).name,
             max_capacity=random.randint(2, 10),
             type=random.choice(("tent", "RV")),
             site_fee=round(random.uniform(9.99, 19.99), 2),
@@ -57,6 +58,20 @@ with app.app_context():
         )
         sites.append(site)
     db.session.add_all(sites)
+    db.session.commit()
+
+    print("Seeding reservations...")
+
+    rsvps = []
+
+    for _ in range(10):
+        rsvp = Reservation(
+            camper=fake.name(),
+            park_id=random.choice(parks).id,
+            campsite_id=random.choice(sites).id,
+        )
+        rsvps.append(rsvp)
+    db.session.add_all(rsvps)
     db.session.commit()
 
     print("Done seeding...")
